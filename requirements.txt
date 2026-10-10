@@ -1,0 +1,8 @@
+# Google Cloud Storage Client Library
+google-cloud-storage>=2.14.0
+
+# SSH & SFTP Client
+paramiko>=3.4.0
+
+# Environment variable loader
+python-dotenv>=1.0.1

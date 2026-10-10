@@ -1,0 +1,15 @@
+[Unit]
+Description=SFTP to GCS Sync Job
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=YOUR_VM_USERNAME
+WorkingDirectory=/home/YOUR_VM_USERNAME/YOUR_REPO_NAME
+ExecStart=/home/YOUR_VM_USERNAME/YOUR_REPO_NAME/venv/bin/python main.py
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,12 @@
+[Unit]
+Description=Run SFTP to GCS Sync periodically
+
+[Timer]
+# Example: Run every hour (at minute 0)
+OnCalendar=*-*-* *:00:00
+# Or run daily at 02:00 AM:
+# OnCalendar=*-*-* 02:00:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target
