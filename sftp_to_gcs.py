@@ -134,10 +134,7 @@ class GCSHandler:
         try:
             self.client = storage.Client(**client_kwargs)
             self.bucket = self.client.bucket(self.config.gcs_bucket_name)
-            # Verify bucket existence and permission
-            if not self.bucket.exists():
-                raise ValueError(f"GCS Bucket '{self.config.gcs_bucket_name}' does not exist or is inaccessible.")
-            logger.info("Connected to GCS Bucket '%s'.", self.config.gcs_bucket_name)
+            logger.info("Configured GCS Bucket '%s'.", self.config.gcs_bucket_name)
         except GoogleCloudError as e:
             logger.error("GCS authorization or network error: %s", e)
             raise
