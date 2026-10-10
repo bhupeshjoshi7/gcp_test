@@ -6,3 +6,7 @@ paramiko>=3.4.0
 
 # Environment variable loader
 python-dotenv>=1.0.1
+
+# PostgreSQL driver for Cloud SQL
+psycopg2-binary>=2.9.9
+

@@ -1,0 +1,10 @@
+[Unit]
+Description=Run Daily Pipeline on Business Days (Monday through Friday)
+
+[Timer]
+# Runs at 04:00 AM UTC every business day (Mon through Fri)
+OnCalendar=Mon..Fri *-*-* 04:00:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target

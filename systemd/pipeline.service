@@ -1,0 +1,15 @@
+[Unit]
+Description=Daily Business Pipeline (Argon -> GCS -> Cloud SQL -> Business Logic)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=bhupeshjoshi2k4
+WorkingDirectory=/home/bhupeshjoshi2k4/gcp_test
+ExecStart=/home/bhupeshjoshi2k4/gcp_test/venv/bin/python pipeline.py
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

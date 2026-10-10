@@ -30,6 +30,16 @@ class AppConfig:
     delete_after_upload: bool
     temp_dir: str
 
+    # Cloud SQL PostgreSQL Settings
+    db_host: Optional[str] = None
+    db_port: int = 5432
+    db_name: Optional[str] = None
+    db_user: Optional[str] = None
+    db_password: Optional[str] = None
+    db_staging_table: str = "staging_argon_data"
+    db_prod_table: str = "argon_data"
+    db_sslmode: str = "prefer"
+
 
 def load_config() -> AppConfig:
     """Loads and validates configuration from environment variables."""
@@ -52,6 +62,21 @@ def load_config() -> AppConfig:
     delete_after_upload_str = os.getenv("DELETE_AFTER_UPLOAD", "false").strip().lower()
     delete_after_upload = delete_after_upload_str in ("1", "true", "yes")
     temp_dir = os.getenv("TEMP_DIR", "/tmp").strip()
+
+    # Cloud SQL PostgreSQL settings
+    db_host = os.getenv("DB_HOST", "").strip() or None
+    db_port_str = os.getenv("DB_PORT", "5432").strip()
+    db_name = os.getenv("DB_NAME", "").strip() or None
+    db_user = os.getenv("DB_USER", "").strip() or None
+    db_password = os.getenv("DB_PASSWORD", "").strip() or None
+    db_staging_table = os.getenv("DB_STAGING_TABLE", "staging_argon_data").strip()
+    db_prod_table = os.getenv("DB_PROD_TABLE", "argon_data").strip()
+    db_sslmode = os.getenv("DB_SSLMODE", "prefer").strip()
+
+    try:
+        db_port = int(db_port_str)
+    except ValueError:
+        db_port = 5432
 
     # Validations
     errors = []
@@ -101,4 +126,12 @@ def load_config() -> AppConfig:
         transfer_mode=transfer_mode,
         delete_after_upload=delete_after_upload,
         temp_dir=temp_dir,
+        db_host=db_host,
+        db_port=db_port,
+        db_name=db_name,
+        db_user=db_user,
+        db_password=db_password,
+        db_staging_table=db_staging_table,
+        db_prod_table=db_prod_table,
+        db_sslmode=db_sslmode,
     )
