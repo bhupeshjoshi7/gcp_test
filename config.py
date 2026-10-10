@@ -38,6 +38,8 @@ def load_config() -> AppConfig:
     sftp_user = os.getenv("SFTP_USER", "").strip()
     sftp_password = os.getenv("SFTP_PASSWORD", "").strip() or None
     sftp_key_path = os.getenv("SFTP_KEY_PATH", "").strip() or None
+    if sftp_key_path:
+        sftp_key_path = os.path.expanduser(sftp_key_path)
     sftp_key_passphrase = os.getenv("SFTP_KEY_PASSPHRASE", "").strip() or None
     sftp_remote_path = os.getenv("SFTP_REMOTE_PATH", "").strip()
 

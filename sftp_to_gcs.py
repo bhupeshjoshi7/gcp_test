@@ -35,11 +35,16 @@ class SFTPHandler:
         }
 
         if self.config.sftp_key_path:
-            connect_kwargs["key_filename"] = self.config.sftp_key_path
+            key_path = os.path.expanduser(self.config.sftp_key_path)
+            connect_kwargs["key_filename"] = key_path
+            connect_kwargs["look_for_keys"] = False
+            connect_kwargs["allow_agent"] = False
             if self.config.sftp_key_passphrase:
                 connect_kwargs["passphrase"] = self.config.sftp_key_passphrase
         elif self.config.sftp_password:
             connect_kwargs["password"] = self.config.sftp_password
+            connect_kwargs["look_for_keys"] = False
+            connect_kwargs["allow_agent"] = False
 
         try:
             self.ssh_client.connect(**connect_kwargs)
